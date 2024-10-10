@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edge Detection Result</title>
+    <style>
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flexc{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .flexw{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .br{
+            border-radius: 7px;
+        }
+        .box{
+            margin: 5px;
+            padding: 5px;
+        }
+        button {
+            background-color: #6200ea; 
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 2px;
+            cursor: pointer;
+            border-radius: 50px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        }
+        button:hover {
+            background-color: #3700b3; 
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #3700b3; 
+            transform: translateY(0); 
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+            color: #212121;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        img{
+            height: 270px;
+            width: 360px;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flexc">
+        <h1>Edge Detection Result</h1>
+        <div class="box flex">
+            <img src="data:image/jpeg;base64,{{ image }}" alt="Detected edges"/>
+        </div>
+        <div class="flex">
+            <a href="{% url 'edge_detection_view' %}"><div class="btn btn-outline-success me-2">Upload Another Image</div></a>
+        </div>
+
+    </div>
+</body>
+</html>
+{% endblock content %}

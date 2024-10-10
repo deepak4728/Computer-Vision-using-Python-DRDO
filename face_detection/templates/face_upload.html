@@ -1,0 +1,136 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <style>
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flexc{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .flexw{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .br{
+            border-radius: 7px;
+        }
+        .box{
+            margin: 5px;
+            padding: 5px;
+        }
+        button {
+            background-color: #6200ea; 
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 2px;
+            cursor: pointer;
+            border-radius: 50px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        }
+        button:hover {
+            background-color: #3700b3; 
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            background-color: #3700b3; 
+            transform: translateY(0); 
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+            color: #212121;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="flexc">
+        <div class="flex">
+            <div class="header">
+                <h1>Face Detection Project</h1>
+            </div>
+        </div>
+        <div class="flexc">
+            <h3>Capture Image from Camera</h3>
+            <div class="flex">
+                <div class="flexw">
+                    <div class="box flexc">
+                        <video class="br" id="video" width="360" height="270" autoplay></video>
+                    </div>
+                    <div class="box flexc">
+                        <canvas class="br" id="canvas" width="360" height="270"></canvas>
+                    </div>   
+                    
+                </div>
+            </div>
+            <button class="btn btn-outline-success me-2" id="snap" onclick="upload_add()" type="submit">Capture</button>
+            <script>
+                const video = document.getElementById('video');
+                const canvas = document.getElementById('canvas');
+                const context = canvas.getContext('2d');
+                const snap = document.getElementById('snap');
+                
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    video.srcObject = stream;
+                });
+                
+                snap.addEventListener('click', () => {
+                    context.drawImage(video, 0, 0, 360, 270);
+                    canvas.toBlob((blob) => {
+                        const formData = new FormData();
+                        formData.append('image', blob, 'capture.jpg');
+                        
+                        fetch('/', {
+                            method: 'POST',
+                            body: formData,
+                        }).then((response) => response.json())
+                        .then((data) => {
+                            window.location.href = data.redirect_url;
+                        });
+                    });
+                });
+                </script>
+        </div>
+        <div class="flex">
+            <div class="flexw">
+                <div class="box">
+                    <h2>Upload Image</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-outline-success me-2" type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detected Faces</title>
+    <style>
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flexc{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .br{
+            border-radius: 7px;
+        }
+        .box{
+            margin: 5px;
+            padding: 5px;
+        }
+        img{
+            height: 270px;
+            width: 360px;
+        }
+        button {
+            background-color: #6200ea; /* Primary color */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 2px;
+            cursor: pointer;
+            border-radius: 50px; /* Rounded corners */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        button:hover {
+            background-color: #3700b3; /* Darker shade on hover */
+            transform: translateY(-2px); /* Lift effect */
+        }
+        
+        button:active {
+            background-color: #3700b3; /* Slightly darker on click */
+            transform: translateY(0); /* Return to original position */
+        }
+    </style>
+</head>
+<body>
+    <div class="flexc">
+        <div class="flex">
+            <h2>Face Detection Result</h2>
+        </div>
+        
+        <div class="box">
+            <img src="/{{ detected_faces_path }}" alt="Detected Faces">
+        </div>
+        
+        <p>Number of faces detected: {{ num_faces }}</p>
+        <a href="{% url 'upload_image' %}"><div class="btn btn-outline-success me-2">Upload another image</div></a>
+    </div>
+</body>
+</html>
+
+{% endblock content %}
