@@ -84,7 +84,7 @@ http://127.0.0.1:8000/
 
 | Upload Page                       | Detection Output                   | Classification Result                 |
 | --------------------------------- | ---------------------------------- | ------------------------------------- |
-| ![Upload](/face_detection/project code screenshots/home.png) | ![Faces](/face_detection/project code screenshots/edge_detection_result.png) | ![Classify](/face_detection/project code screenshots/classifier_result.png) |
+| ![Upload](face_detection/project code screenshots/home.png) | ![Faces](/face_detection/project code screenshots/edge_detection_result.png) | ![Classify](/face_detection/project code screenshots/classifier_result.png) |
 
 ---
 
